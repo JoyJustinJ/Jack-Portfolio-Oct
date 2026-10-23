@@ -98,29 +98,28 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 1.8vh, 24px);
-  transform: translateY(-16vh);
+  gap: clamp(8px, 2.5vh, 32px);
+  transform: translateY(-8vh);
   z-index: 1;
   pointer-events: none;
 }
 
 .giant-line {
-  font-family: 'Balboa', 'Balboa Plus', 'Oswald', 'Anton', 'Impact', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
+  font-family: 'Quintessential', cursive, serif;
+  font-weight: 400;
   color: var(--clr-burgundy);
-  line-height: 0.88;
-  letter-spacing: -0.025em;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   user-select: none;
   text-align: center;
   will-change: transform, opacity;
   transition: color 0.3s ease;
-  text-shadow: 0 4px 30px rgba(107, 28, 28, 0.16);
+  text-shadow: 0 4px 24px rgba(107, 28, 28, 0.12);
 }
 
-.text-top    { font-size: clamp(56px, 19vw, 240px); }
-.text-bottom { font-size: clamp(44px, 15vw, 195px); }
+.text-top    { font-size: clamp(52px, 17vw, 220px); }
+.text-bottom { font-size: clamp(40px, 14vw, 180px); }
 
 .profile-stage {
   position: relative;
@@ -984,13 +983,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .pill-link span { display: none; }
   .pill-link { padding: 10px 14px; }
 
-  /* Hero giant text — lifted higher on tablets */
+  /* Hero giant text — sits naturally behind subject on tablets */
   .giant-text-container {
-    transform: translateY(-17vh);
-    gap: 8px;
+    transform: translateY(-10vh);
+    gap: 12px;
   }
-  .text-top    { font-size: clamp(48px, 16vw, 100px); }
-  .text-bottom { font-size: clamp(38px, 13vw, 84px); }
+  .text-top    { font-size: clamp(44px, 15vw, 96px); }
+  .text-bottom { font-size: clamp(34px, 12vw, 78px); }
 
   /* Hero profile image — zoomed and tall */
   .profile-stage {
@@ -1018,13 +1017,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 @media (max-width: 480px) {
-  /* Hero giant text — lifted higher on phones */
+  /* Hero giant text — sits naturally behind subject on phones */
   .giant-text-container {
-    transform: translateY(-19vh);
-    gap: 6px;
+    transform: translateY(-12vh);
+    gap: 8px;
   }
-  .text-top    { font-size: clamp(42px, 15vw, 76px); }
-  .text-bottom { font-size: clamp(32px, 12vw, 62px); }
+  .text-top    { font-size: clamp(38px, 14vw, 68px); letter-spacing: 0.01em; }
+  .text-bottom { font-size: clamp(28px, 11vw, 54px); letter-spacing: 0.01em; }
 
   /* Profile image zoomed and full on phones */
   .profile-stage {

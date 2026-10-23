@@ -142,20 +142,20 @@ tabButtons.forEach(btn => {
 /* ---- 4. SCROLL REVEAL (INTERSECTION OBSERVER) ---- */
 const revealElements = document.querySelectorAll('.reveal-up, .reveal-stagger');
 
-if (prefersReducedMotion) {
-  revealElements.forEach(el => el.classList.add('visible'));
-} else {
+if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, idx) => {
       if (entry.isIntersecting) {
-        const delay = entry.target.classList.contains('reveal-stagger') ? (idx % 3) * 120 : 0;
+        const delay = entry.target.classList.contains('reveal-stagger') ? (idx % 3) * 100 : 0;
         setTimeout(() => entry.target.classList.add('visible'), delay);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 60px 0px' });
 
   revealElements.forEach(el => observer.observe(el));
+} else {
+  revealElements.forEach(el => el.classList.add('visible'));
 }
 
 /* ---- 5. SMOOTH ANCHOR LINK SCROLLING ---- */
@@ -169,7 +169,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       const targetTop = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({
         top: targetTop,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        behavior: 'smooth'
       });
     }
   });

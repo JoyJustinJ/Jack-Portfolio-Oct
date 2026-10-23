@@ -103,41 +103,52 @@ const updatePillNav = () => {
 window.addEventListener('scroll', updatePillNav, { passive: true });
 updatePillNav();
 
-/* ---- 3. BOTTOM TAB ICON SWITCHER WITH GLOWING DOT ---- */
-const tabButtons = document.querySelectorAll('.tab-icon-btn');
-const tabWrappers = document.querySelectorAll('.tab-button-wrap');
-const panels = document.querySelectorAll('.skill-panel');
+/* ---- 3. BOTTOM TAB ICON SWITCHER WITH GLOWING DOT (SKILLS & EXPERIENCE) ---- */
+const setupTabSwitcher = (containerSelector, btnSelector, wrapSelector, panelSelector, prefix) => {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
 
-tabButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.getAttribute('data-target');
+  const buttons = container.querySelectorAll(btnSelector);
+  const wrappers = container.querySelectorAll(wrapSelector);
+  const panels = container.querySelectorAll(panelSelector);
 
-    // Deactivate all buttons and wrappers
-    tabWrappers.forEach(wrap => wrap.classList.remove('active'));
-    tabButtons.forEach(b => {
-      b.classList.remove('active');
-      b.setAttribute('aria-selected', 'false');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+
+      // Deactivate buttons and wrappers within this container
+      wrappers.forEach(wrap => wrap.classList.remove('active'));
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+
+      // Activate clicked button and wrapper
+      const currentWrap = btn.closest(wrapSelector);
+      if (currentWrap) currentWrap.classList.add('active');
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Hide panels and display target panel with smooth transition
+      panels.forEach(panel => {
+        panel.classList.remove('active');
+        panel.hidden = true;
+      });
+
+      const targetPanel = document.getElementById(`${prefix}-${target}`);
+      if (targetPanel) {
+        targetPanel.hidden = false;
+        setTimeout(() => targetPanel.classList.add('active'), 10);
+      }
     });
-
-    // Activate selected tab and wrapper
-    const currentWrap = btn.closest('.tab-button-wrap');
-    if (currentWrap) currentWrap.classList.add('active');
-    btn.classList.add('active');
-    btn.setAttribute('aria-selected', 'true');
-
-    // Hide all panels and display target panel
-    panels.forEach(panel => {
-      panel.classList.remove('active');
-      panel.hidden = true;
-    });
-
-    const targetPanel = document.getElementById(`panel-${target}`);
-    if (targetPanel) {
-      targetPanel.hidden = false;
-      setTimeout(() => targetPanel.classList.add('active'), 10);
-    }
   });
-});
+};
+
+// Initialize Skills Tab Animation
+setupTabSwitcher('#skills', '.tab-icon-btn', '.tab-button-wrap', '.skill-panel', 'panel');
+
+// Initialize Experience & Organizations Tab Animation
+setupTabSwitcher('#experience', '.exp-tab-btn', '.exp-tab-wrap', '.exp-panel', 'exp-panel');
 
 /* ---- 4. SCROLL REVEAL (INTERSECTION OBSERVER) ---- */
 const revealElements = document.querySelectorAll('.reveal-up, .reveal-stagger');

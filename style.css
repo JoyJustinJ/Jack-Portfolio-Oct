@@ -404,15 +404,46 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex; align-items: center; justify-content: center; gap: 12px;
   font-weight: 700; color: #334155;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.company-card:hover { transform: translateY(-2px); border-color: rgba(107, 28, 28, 0.2); }
-.company-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--clr-burgundy); }
+.company-card:hover { transform: translateY(-3px); border-color: rgba(107, 28, 28, 0.25); }
+.company-card-link {
+  text-decoration: none;
+  cursor: pointer;
+  background: white;
+}
+.company-card-link:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--clr-burgundy);
+  box-shadow: 0 10px 24px rgba(107, 28, 28, 0.12);
+}
+.company-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--clr-burgundy); flex-shrink: 0; }
+.pulse-emerald {
+  background: #10B981 !important;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+  animation: pulse-dot-anim 1.8s infinite;
+}
+@keyframes pulse-dot-anim {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.link-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--clr-crimson);
+  background: rgba(177, 18, 38, 0.08);
+  border: 1px solid rgba(177, 18, 38, 0.18);
+  border-radius: 9999px;
+  padding: 3px 8px;
+  margin-left: 4px;
+}
 
 /* ============================================================
-   SKILLS SECTION (INTERACTIVE GLASSMORPHIC CARD + TABS)
+   SKILLS & EXPERIENCE (INTERACTIVE GLASSMORPHIC CARD + TABS)
    ============================================================ */
-.skills-section {
+.skills-section, .experience-section {
   background: #F8FAFC;
   padding: var(--sp-12) 0;
   position: relative;
@@ -447,12 +478,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .panel-title { font-size: clamp(1.8rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.02em; color: var(--clr-text-main); margin-bottom: 6px; }
 .panel-subtitle { font-size: 1.05rem; color: var(--clr-text-muted); font-weight: 500; }
 
-.skill-panel {
+.skill-panel, .exp-panel {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.skill-panel.active {
+.skill-panel.active, .exp-panel.active {
   opacity: 1;
   transform: translateY(0);
 }
@@ -572,131 +603,167 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ============================================================
-   EXPERIENCE & EDUCATION SECTION
+   EXPERIENCE CARD SPECIFICS & BADGES
    ============================================================ */
-.services-pricing-section {
-  padding: var(--sp-16) 0;
-  background: var(--clr-bg-page);
-}
-
-.section-container {
-  max-width: 1200px;
-  width: 92%;
-  margin: 0 auto;
-}
-
-.section-subtext {
-  font-size: 1.1rem;
-  color: var(--clr-text-muted);
-  max-width: 650px;
-  margin: 12px auto 0;
-  line-height: 1.6;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 32px;
-  margin-top: var(--sp-10);
-  align-items: stretch;
-}
-
-.service-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 32px;
-  padding: 44px 38px 38px 38px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.06);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
-  position: relative;
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.12);
-  border-color: rgba(107, 28, 28, 0.25);
-}
-
-/* Featured Card */
-.service-card.featured {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F8 100%);
-  border: 2px solid var(--clr-burgundy);
-  box-shadow: 0 25px 60px -10px rgba(107, 28, 28, 0.16);
-  transform: translateY(-6px);
-}
-.service-card.featured:hover {
-  transform: translateY(-14px);
-  box-shadow: 0 32px 70px -12px rgba(107, 28, 28, 0.25);
-}
-
-.badge-row {
+.badge-row-sm {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
-
-.pill-tag {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.72rem;
+.pill-tag-sm {
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--clr-burgundy);
-  background: rgba(107, 28, 28, 0.08);
-  padding: 6px 14px;
+  color: var(--clr-text-muted);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 3px 10px;
   border-radius: 9999px;
-  border: 1px solid rgba(107, 28, 28, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
-
-.pill-featured {
-  background: var(--clr-burgundy);
+.pill-tag-sm.pill-live {
+  color: #047857;
+  background: #D1FAE5;
+  border: 1px solid #A7F3D0;
+  font-weight: 800;
+}
+.btn-live-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--clr-crimson);
+  padding: 8px 16px;
+  background: rgba(177, 18, 38, 0.07);
+  border: 1px solid rgba(177, 18, 38, 0.2);
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  width: fit-content;
+}
+.btn-live-card:hover {
+  background: var(--clr-crimson);
   color: white;
-  border: 1px solid var(--clr-burgundy);
-  box-shadow: 0 4px 12px rgba(107, 28, 28, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(177, 18, 38, 0.25);
+}
+.exp-card-featured {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(107, 28, 28, 0.18);
+  box-shadow: 0 8px 24px rgba(107, 28, 28, 0.06);
 }
 
-.card-top-section h3 {
-  font-size: 1.65rem;
+/* ============================================================
+   ACADEMIA & CREDENTIALS SECTION (SHOWCASE GRID)
+   ============================================================ */
+.credentials-section {
+  background: #FFFFFF;
+  padding: var(--sp-14) 0;
+  position: relative;
+  border-top: 1px solid var(--clr-border);
+}
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+  margin-top: var(--sp-8);
+}
+.credential-card {
+  background: #FAF8F8;
+  border: 1px solid rgba(107, 28, 28, 0.12);
+  border-radius: 28px;
+  padding: 34px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+.credential-card:hover {
+  transform: translateY(-6px);
+  background: #FFFFFF;
+  border-color: rgba(107, 28, 28, 0.3);
+  box-shadow: 0 20px 45px rgba(107, 28, 28, 0.12);
+}
+.credential-card-featured {
+  border: 2px solid var(--clr-burgundy);
+  background: #FFFFFF;
+}
+.credential-badge-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgba(107, 28, 28, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-crimson);
+  box-shadow: 0 4px 14px rgba(177, 18, 38, 0.1);
+}
+.credential-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.cred-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+.cred-tag-google { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
+.cred-tag-meta   { background: #EDE9FE; color: #6D28D9; border: 1px solid #DDD6FE; }
+.cred-tag-degree { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+.cred-date {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--clr-text-faint);
+}
+.credential-title {
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--clr-text-main);
   letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.credential-issuer {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  font-weight: 600;
   margin-bottom: 12px;
 }
-
-.service-desc {
-  font-size: 0.95rem;
-  color: var(--clr-text-muted);
-  line-height: 1.65;
-  margin-bottom: 24px;
-}
-
-.card-divider {
-  height: 1px;
-  background: rgba(15, 23, 42, 0.06);
-  width: 100%;
-  margin: 0 0 24px 0;
-}
-
-.features-label {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--clr-text-faint);
-  margin-bottom: 18px;
-  text-transform: uppercase;
-  display: block;
-}
-
-.service-features {
+.credential-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--clr-text-muted);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 12px;
+}
+.credential-highlights li {
+  position: relative;
+  padding-left: 16px;
+}
+.credential-highlights li::before {
+  content: "•";
+  position: absolute;
+  left: 2px;
+  color: var(--clr-crimson);
+  font-weight: 900;
 }
 
 .service-features li {

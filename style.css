@@ -57,13 +57,10 @@ html {
   font-size: 16px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto !important; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Smooth scrolling enabled globally */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 body {
@@ -101,48 +98,49 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 2.5vh, 32px);
-  transform: translateY(-8vh);
+  gap: clamp(6px, 1.8vh, 24px);
+  transform: translateY(-16vh);
   z-index: 1;
   pointer-events: none;
 }
 
 .giant-line {
-  font-family: 'Quintessential', cursive, serif;
-  font-weight: 400;
+  font-family: 'Balboa', 'Balboa Plus', 'Oswald', 'Anton', 'Impact', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
   color: var(--clr-burgundy);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
+  line-height: 0.88;
+  letter-spacing: -0.025em;
   white-space: nowrap;
   user-select: none;
   text-align: center;
   will-change: transform, opacity;
   transition: color 0.3s ease;
-  text-shadow: 0 4px 24px rgba(107, 28, 28, 0.12);
+  text-shadow: 0 4px 30px rgba(107, 28, 28, 0.16);
 }
 
-.text-top    { font-size: clamp(52px, 17vw, 220px); }
-.text-bottom { font-size: clamp(40px, 14vw, 180px); }
+.text-top    { font-size: clamp(56px, 19vw, 240px); }
+.text-bottom { font-size: clamp(44px, 15vw, 195px); }
 
 .profile-stage {
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   height: 100vh;
   width: 100%;
   pointer-events: none;
-  padding: 0 16px;
 }
 
 .hero-profile-img {
-  height: clamp(380px, 76vh, 860px);
-  max-height: 80vh;
+  height: clamp(520px, 94vh, 1080px);
+  max-height: 96vh;
   width: auto;
-  max-width: 90vw;
+  max-width: 95vw;
   object-fit: contain;
-  filter: drop-shadow(0 12px 30px rgba(107, 28, 28, 0.2)) drop-shadow(0 20px 60px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 14px 35px rgba(107, 28, 28, 0.22)) drop-shadow(0 25px 70px rgba(0, 0, 0, 0.32));
+  transform: translateY(16px);
   will-change: transform;
 }
 
@@ -988,21 +986,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   /* Hero giant text — lifted higher on tablets */
   .giant-text-container {
-    transform: translateY(-10vh);
-    gap: 12px;
+    transform: translateY(-17vh);
+    gap: 8px;
   }
-  .text-top    { font-size: clamp(44px, 15vw, 96px); }
-  .text-bottom { font-size: clamp(34px, 12vw, 78px); }
+  .text-top    { font-size: clamp(48px, 16vw, 100px); }
+  .text-bottom { font-size: clamp(38px, 13vw, 84px); }
 
-  /* Hero profile image — perfectly centered */
+  /* Hero profile image — zoomed and tall */
   .profile-stage {
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
   }
   .hero-profile-img {
-    height: clamp(300px, 64vh, 520px);
-    max-height: 68vh;
-    max-width: 86vw;
+    height: clamp(400px, 80vh, 620px);
+    max-height: 84vh;
+    max-width: 92vw;
   }
 
   /* Cards */
@@ -1022,21 +1020,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (max-width: 480px) {
   /* Hero giant text — lifted higher on phones */
   .giant-text-container {
-    transform: translateY(-12vh);
-    gap: 8px;
+    transform: translateY(-19vh);
+    gap: 6px;
   }
-  .text-top    { font-size: clamp(38px, 14vw, 68px); letter-spacing: 0.01em; }
-  .text-bottom { font-size: clamp(28px, 11vw, 54px); letter-spacing: 0.01em; }
+  .text-top    { font-size: clamp(42px, 15vw, 76px); }
+  .text-bottom { font-size: clamp(32px, 12vw, 62px); }
 
-  /* Profile image centered on phones */
+  /* Profile image zoomed and full on phones */
   .profile-stage {
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
   }
   .hero-profile-img {
-    height: clamp(260px, 56vh, 400px);
-    max-height: 60vh;
-    max-width: 84vw;
+    height: clamp(340px, 76vh, 500px);
+    max-height: 80vh;
+    max-width: 90vw;
   }
 
   .intro-section { padding: var(--sp-10) var(--sp-2) var(--sp-6); }

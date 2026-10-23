@@ -9,21 +9,20 @@ const textTop = document.getElementById('parallax-text-top');
 const textBottom = document.getElementById('parallax-text-bottom');
 const profileImg = document.getElementById('parallax-profile-img');
 const fixedHeroBg = document.querySelector('.fixed-hero-bg');
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let ticking = false;
 
-const handleHeroParallax = () => {
-  const scrollY = window.scrollY;
-  const viewportHeight = window.innerHeight;
+const updateHeroParallax = () => {
+  const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+  const viewportHeight = window.innerHeight || 800;
 
-  // Only run animations if within the hero viewport and motion is enabled
-  if (!prefersReducedMotion && scrollY <= viewportHeight * 1.5) {
-    const progress = Math.min(1, scrollY / viewportHeight);
+  if (scrollY <= viewportHeight * 1.5) {
+    const progress = Math.min(1, Math.max(0, scrollY / viewportHeight));
     
-    // Split text outwardly and float subtly higher for improved visibility
-    const moveX = progress * Math.min(260, window.innerWidth * 0.32); 
-    const moveYTop = -progress * 28;
-    const moveYBottom = progress * 16;
-    const opacityText = 1 - progress * 0.65;
+    // Split text outwardly — safe distance on all screens
+    const moveX = progress * Math.min(280, window.innerWidth * 0.35); 
+    const moveYTop = -progress * 30;
+    const moveYBottom = progress * 15;
+    const opacityText = 1 - progress * 0.70;
     
     if (textTop) {
       textTop.style.transform = `translate3d(${-moveX}px, ${moveYTop}px, 0)`;
@@ -36,23 +35,30 @@ const handleHeroParallax = () => {
       textBottom.style.color = progress > 0.15 ? '#9E6A6A' : '#6B1C1C';
     }
 
-    // Centered portrait glides with parallax depth as sheet rises
+    // Zoomed photo glides with natural parallax depth as white content sheet rises
     if (profileImg) {
-      profileImg.style.transform = `translate3d(0, ${scrollY * 0.22}px, 0) scale(${1 - progress * 0.04})`;
+      profileImg.style.transform = `translate3d(0, ${scrollY * 0.26}px, 0) scale(${1 - progress * 0.04})`;
     }
     
     if (fixedHeroBg) {
       fixedHeroBg.style.visibility = 'visible';
     }
   } else if (scrollY > viewportHeight * 1.5 && fixedHeroBg) {
-    // Hide fixed layer once scrolled past to save GPU drawing cycles
     fixedHeroBg.style.visibility = 'hidden';
+  }
+  ticking = false;
+};
+
+const onScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateHeroParallax);
+    ticking = true;
   }
 };
 
-window.addEventListener('scroll', handleHeroParallax, { passive: true });
-window.addEventListener('resize', handleHeroParallax, { passive: true });
-handleHeroParallax();
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll, { passive: true });
+updateHeroParallax();
 
 /* ---- 2. FLOATING PILL NAV ACTIVE TAB MONITORING & SCROLL REVEAL ---- */
 const pillLinks = document.querySelectorAll('.pill-link');

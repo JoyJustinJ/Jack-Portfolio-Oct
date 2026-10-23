@@ -19,8 +19,8 @@ const handleHeroParallax = () => {
   if (!prefersReducedMotion && scrollY <= viewportHeight * 1.5) {
     const progress = Math.min(1, scrollY / viewportHeight);
     
-    // Split text outwardly — capped at 40vw so it never flies off narrow screens
-    const moveX = progress * Math.min(320, window.innerWidth * 0.40); 
+    // Split text outwardly — capped at 32vw so it stays on-screen across mobile and tablets
+    const moveX = progress * Math.min(260, window.innerWidth * 0.32); 
     const opacityText = 1 - progress * 0.65;
     
     if (textTop) {
@@ -34,9 +34,9 @@ const handleHeroParallax = () => {
       textBottom.style.color = progress > 0.15 ? '#9E6A6A' : '#6B1C1C';
     }
 
-    // Keep person photo naturally positioned while white sheet rises over it
+    // Centered portrait glides with parallax depth as sheet rises
     if (profileImg) {
-      profileImg.style.transform = `translate3d(0, ${16 + scrollY * 0.3}px, 0) scale(${1 - progress * 0.05})`;
+      profileImg.style.transform = `translate3d(0, ${scrollY * 0.22}px, 0) scale(${1 - progress * 0.04})`;
     }
     
     if (fixedHeroBg) {

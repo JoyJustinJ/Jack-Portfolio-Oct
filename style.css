@@ -101,45 +101,48 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0;
+  gap: clamp(8px, 2.5vh, 32px);
+  transform: translateY(-8vh);
   z-index: 1;
+  pointer-events: none;
 }
 
 .giant-line {
-  font-family: var(--font-sans);
-  font-weight: 900;
+  font-family: 'Quintessential', cursive, serif;
+  font-weight: 400;
   color: var(--clr-burgundy);
-  line-height: 0.88;
-  letter-spacing: -0.05em;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   user-select: none;
   text-align: center;
   will-change: transform, opacity;
   transition: color 0.3s ease;
+  text-shadow: 0 4px 24px rgba(107, 28, 28, 0.12);
 }
 
-.text-top    { font-size: clamp(56px, 21vw, 280px); }
-.text-bottom { font-size: clamp(48px, 18vw, 245px); }
+.text-top    { font-size: clamp(52px, 17vw, 220px); }
+.text-bottom { font-size: clamp(40px, 14vw, 180px); }
 
 .profile-stage {
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100%;
   pointer-events: none;
+  padding: 0 16px;
 }
 
 .hero-profile-img {
-  height: clamp(460px, 98vh, 1080px);
-  max-height: 100vh;
+  height: clamp(380px, 76vh, 860px);
+  max-height: 80vh;
   width: auto;
-  max-width: 95vw;
+  max-width: 90vw;
   object-fit: contain;
-  filter: drop-shadow(0 10px 30px rgba(107, 28, 28, 0.2)) drop-shadow(0 20px 60px rgba(0, 0, 0, 0.25));
-  transform: translateY(16px);
+  filter: drop-shadow(0 12px 30px rgba(107, 28, 28, 0.2)) drop-shadow(0 20px 60px rgba(0, 0, 0, 0.28));
   will-change: transform;
 }
 
@@ -983,14 +986,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .pill-link span { display: none; }
   .pill-link { padding: 10px 14px; }
 
-  /* Hero giant text */
-  .text-top    { font-size: clamp(52px, 18vw, 110px); }
-  .text-bottom { font-size: clamp(42px, 15vw, 94px); }
+  /* Hero giant text — lifted higher on tablets */
+  .giant-text-container {
+    transform: translateY(-10vh);
+    gap: 12px;
+  }
+  .text-top    { font-size: clamp(44px, 15vw, 96px); }
+  .text-bottom { font-size: clamp(34px, 12vw, 78px); }
 
-  /* Hero profile image */
+  /* Hero profile image — perfectly centered */
+  .profile-stage {
+    align-items: center;
+    justify-content: center;
+  }
   .hero-profile-img {
-    height: clamp(260px, 62vh, 540px);
-    max-height: 72vh;
+    height: clamp(300px, 64vh, 520px);
+    max-height: 68vh;
+    max-width: 86vw;
   }
 
   /* Cards */
@@ -1008,14 +1020,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 @media (max-width: 480px) {
-  /* Hero giant text */
-  .text-top    { font-size: clamp(44px, 16vw, 80px); letter-spacing: -0.04em; }
-  .text-bottom { font-size: clamp(36px, 13.5vw, 68px); letter-spacing: -0.04em; }
+  /* Hero giant text — lifted higher on phones */
+  .giant-text-container {
+    transform: translateY(-12vh);
+    gap: 8px;
+  }
+  .text-top    { font-size: clamp(38px, 14vw, 68px); letter-spacing: 0.01em; }
+  .text-bottom { font-size: clamp(28px, 11vw, 54px); letter-spacing: 0.01em; }
 
-  /* Profile image */
+  /* Profile image centered on phones */
+  .profile-stage {
+    align-items: center;
+    justify-content: center;
+  }
   .hero-profile-img {
-    height: clamp(230px, 58vh, 420px);
-    max-height: 65vh;
+    height: clamp(260px, 56vh, 400px);
+    max-height: 60vh;
+    max-width: 84vw;
   }
 
   .intro-section { padding: var(--sp-10) var(--sp-2) var(--sp-6); }

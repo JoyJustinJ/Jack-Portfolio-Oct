@@ -19,17 +19,19 @@ const handleHeroParallax = () => {
   if (!prefersReducedMotion && scrollY <= viewportHeight * 1.5) {
     const progress = Math.min(1, scrollY / viewportHeight);
     
-    // Split text outwardly — capped at 32vw so it stays on-screen across mobile and tablets
+    // Split text outwardly and float subtly higher for improved visibility
     const moveX = progress * Math.min(260, window.innerWidth * 0.32); 
+    const moveYTop = -progress * 28;
+    const moveYBottom = progress * 16;
     const opacityText = 1 - progress * 0.65;
     
     if (textTop) {
-      textTop.style.transform = `translate3d(${-moveX}px, 0, 0)`;
+      textTop.style.transform = `translate3d(${-moveX}px, ${moveYTop}px, 0)`;
       textTop.style.opacity = opacityText;
       textTop.style.color = progress > 0.15 ? '#9E6A6A' : '#6B1C1C';
     }
     if (textBottom) {
-      textBottom.style.transform = `translate3d(${moveX}px, 0, 0)`;
+      textBottom.style.transform = `translate3d(${moveX}px, ${moveYBottom}px, 0)`;
       textBottom.style.opacity = opacityText;
       textBottom.style.color = progress > 0.15 ? '#9E6A6A' : '#6B1C1C';
     }
